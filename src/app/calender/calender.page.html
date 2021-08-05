@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Profit Calender
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Profit Calender</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-segment scrollable value="All">
+    <ion-segment-button value="All">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="me">
+      <ion-label>Me</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="sherif">
+      <ion-label>Sherif</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="children">
+      <ion-label>Children</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="teta">
+      <ion-label>Teta</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-calendar [(ngModel)]="dateList" [readonly]="true" [type]="type" [options]="options" (click)="onclick($event)">
+    
+  </ion-calendar>
+
+  
+
+
+
+</ion-content>
