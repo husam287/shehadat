@@ -1,0 +1,12 @@
+ion-item{
+    .dangerStyle{
+        &::part(text){
+            color: var(--ion-color-danger);
+        }
+    }
+    .successStyle{
+        &::part(text){
+            color: var(--ion-color-success);
+        }
+    }
+}

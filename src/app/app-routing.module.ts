@@ -4,15 +4,15 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'day-details',
-    loadChildren: () => import('./day-details/day-details.module').then( m => m.DayDetailsPageModule)
+    loadChildren: () => import('./pages/day-details/day-details.module').then( m => m.DayDetailsPageModule)
   },
   {
     path: 'add-shehada',
-    loadChildren: () => import('./add-shehada/add-shehada.module').then( m => m.AddShehadaPageModule)
+    loadChildren: () => import('./pages/add-shehada/add-shehada.module').then( m => m.AddShehadaPageModule)
   }
 ];
 @NgModule({
