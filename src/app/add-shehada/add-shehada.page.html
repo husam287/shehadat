@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add New Shehada</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home" (click)="onClose()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-row>
+  <ion-col size="12">
+    <form class="ion-text-center" #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <ion-item>
+        <ion-label position="fixed">Money</ion-label>
+        <ion-input ngModel name="money" type="number" placeholder="Ex: 10000"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="fixed">Profit in %</ion-label>
+        <ion-input ngModel name="profit" type="number" placeholder="Ex: 15"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Start Date</ion-label>
+        <ion-datetime [ngModel]="initStartDate" name="startDate" max="2100" displayFormat="YYYY-MM-DD"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>End Date</ion-label>
+        <ion-datetime [ngModel]="initStartDate" name="endDate" [min]="initStartDate" max="2100" displayFormat="YYYY-MM-DD" ></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Owner</ion-label>
+        <ion-select ngModel name="owner" interface="popover" placeholder="Select One">
+          <ion-select-option value="me">Me</ion-select-option>
+          <ion-select-option value="sherif">Sherif</ion-select-option>
+          <ion-select-option value="children">Children</ion-select-option>
+          <ion-select-option value="teta">Teta</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button class="ion-margin" color="success" type="submit" [disabled]="form.invalid">
+        Add
+      </ion-button>
+    </form>
+    
+  </ion-col>
+</ion-row>
+</ion-content>

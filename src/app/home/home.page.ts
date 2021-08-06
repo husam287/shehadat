@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { AddShehadaPage } from '../add-shehada/add-shehada.page';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,7 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private modalController:ModalController) {}
 
   onEdit(){
     
@@ -16,7 +18,17 @@ export class HomePage {
 
   }
   onAdd(){
-    
+    this.presentModal();
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: AddShehadaPage,
+      componentProps:{
+       
+      }
+    });
+    return await modal.present();
   }
 
 }

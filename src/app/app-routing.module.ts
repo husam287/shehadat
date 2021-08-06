@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'day-details',
     loadChildren: () => import('./day-details/day-details.module').then( m => m.DayDetailsPageModule)
+  },
+  {
+    path: 'add-shehada',
+    loadChildren: () => import('./add-shehada/add-shehada.module').then( m => m.AddShehadaPageModule)
   }
 ];
 @NgModule({
