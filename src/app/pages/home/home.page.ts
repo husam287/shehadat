@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ViewWillEnter } from '@ionic/angular';
+import { Shehada } from 'src/app/services/shehada.model';
 import { ShehadatService } from 'src/app/services/shehadat.service';
 import { AddShehadaPage } from '../add-shehada/add-shehada.page';
 
@@ -9,34 +10,32 @@ import { AddShehadaPage } from '../add-shehada/add-shehada.page';
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements ViewWillEnter {
+  shehadat:Shehada[] = [];
+  constructor(private modalController: ModalController, private shehadaService: ShehadatService) { }
 
-  constructor(private modalController:ModalController, private shehadaService:ShehadatService) {}
-
-  ionViewWillEnter(){
-    console.log("hi")
-    console.log(this.shehadaService.getAll()) 
+  ionViewWillEnter() {
+    this.shehadat = this.shehadaService.getAll()
   }
-  
 
-  onEdit(){
-    
-  }
-  onDelete(){
+  onEdit(id) {
 
   }
-  onAdd(){
+  onDelete(id) {
+
+  }
+  onAdd() {
     this.presentModal()
   }
 
   async presentModal() {
     const modal = await this.modalController.create({
       component: AddShehadaPage,
-      componentProps:{
-       
+      componentProps: {
+
       }
     });
 
-    modal.onWillDismiss().then(res=>{
+    modal.onWillDismiss().then(res => {
       this.ionViewWillEnter()
     })
 

@@ -12,7 +12,7 @@
       <ion-title size="large">Home</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-segment scrollable value="All">
     <ion-segment-button value="All">
       <ion-label>All</ion-label>
@@ -30,7 +30,7 @@
       <ion-label>Teta</ion-label>
     </ion-segment-button>
   </ion-segment>
-  
+
   <ion-row>
     <ion-col class="ion-text-end" size="12">
       <ion-button color="success" (click)="onAdd()">
@@ -41,34 +41,41 @@
 
 
   <ion-list>
-    <ion-item-sliding>
+    <ion-item-sliding *ngFor="let shehada of shehadat">
       <ion-item detail="true">
-        <ion-label>Item</ion-label>
-      </ion-item>
-      <ion-item-options  side="end">
-        <ion-item-option color="warning" (click)="onEdit()">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="onDelete()">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  
-    <ion-item-sliding>
-      <ion-item detail="true">
-        <ion-label>Item</ion-label>
+        <ion-grid fixed>
+          <ion-row class="ion-justify-content-between">
+            <ion-label color="primary">{{shehada.type}} Month</ion-label>
+            <ion-label color="primary"><b>{{shehada.money |currency:'EGP '}}</b></ion-label>
+            <ion-label color="primary">{{shehada.profit}} %</ion-label>
+          </ion-row>
+
+          <ion-row class="ion-justify-content-center months">
+            <ion-badge color="success">12/07</ion-badge>
+            <ion-badge color="success">01/01</ion-badge>
+            <ion-badge color="success">28/07</ion-badge>
+            <ion-badge color="success">12/07</ion-badge>
+            <ion-badge color="success">01/01</ion-badge>
+            <ion-badge color="success">28/07</ion-badge>
+            <ion-badge color="success">12/07</ion-badge>
+            <ion-badge color="success">01/01</ion-badge>
+            <ion-badge color="success">28/07</ion-badge>
+            <ion-badge color="success">12/07</ion-badge>
+            <ion-badge color="success">01/01</ion-badge>
+            <ion-badge color="success">28/07</ion-badge>
+          </ion-row>
+        </ion-grid>
+
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="warning" (click)="onEdit()">
+        <ion-item-option color="warning" (click)="onEdit(shehada.id)">
           <ion-icon name="create-outline"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="danger" (click)="onDelete()">
+        <ion-item-option color="danger" (click)="onDelete(shehada.id)">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
-    
   </ion-list>
+
 </ion-content>
