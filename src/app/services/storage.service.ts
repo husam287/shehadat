@@ -26,9 +26,9 @@ export class StorageService {
     return await this._storage.get(key);
   }
   
-  public getAll() {
+  public async getAll() {
     let all = []
-    this._storage.forEach((value, key, index)=>{
+    await this._storage.forEach((value, key, index)=>{
       all.push(value);
     })
     return all;

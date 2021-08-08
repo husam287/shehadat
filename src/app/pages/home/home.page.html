@@ -13,7 +13,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-segment scrollable value="All">
+  <ion-segment (ionChange)="onChange($event['detail'].value)" scrollable value="All">
     <ion-segment-button value="All">
       <ion-label>All</ion-label>
     </ion-segment-button>

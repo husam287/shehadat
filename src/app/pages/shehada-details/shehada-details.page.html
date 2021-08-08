@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{shehada?.money}}EGP - {{shehada?.startDate | date:'d/M/yyyy' }}</ion-title>
+    <ion-title>{{shehada?.money |number}}EGP - {{shehada?.startDate | date:'d/M/yyyy' }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs"></ion-back-button>
     </ion-buttons>
@@ -13,7 +13,7 @@
 
     <ion-card-header>
       <ion-card-subtitle>Type: {{shehada?.type}} Month</ion-card-subtitle>
-      <ion-card-title>Total: {{shehada?.money}} EGP</ion-card-title>
+      <ion-card-title>Total: {{shehada?.money|number}} EGP</ion-card-title>
     </ion-card-header>
 
     <ion-item >
@@ -38,8 +38,8 @@
 
     <ion-item>
       <ion-icon name="cash-outline" slot="start"></ion-icon>
-      <ion-label>{{ ((shehada?.money * (shehada?.profit/100) ) /12).toPrecision(2) }} / 1 month</ion-label>
-      <ion-label>{{ ((shehada?.money * (shehada?.profit/100) ) /4).toPrecision(2) }} / 3 month</ion-label>
+      <ion-label>{{ ((shehada?.money * (shehada?.profit/100) ) /12).toPrecision(2) |number}} / 1 month</ion-label>
+      <ion-label>{{ ((shehada?.money * (shehada?.profit/100) ) /4).toPrecision(2) |number}} / 3 month</ion-label>
     </ion-item>
 
   </ion-card>

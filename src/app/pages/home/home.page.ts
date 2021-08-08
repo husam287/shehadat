@@ -10,39 +10,48 @@ import { AddShehadaPage } from '../add-shehada/add-shehada.page';
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements ViewWillEnter {
-  shehadat:Shehada[] = [];
+  shehadat: Shehada[] = [];
   constructor(private modalController: ModalController, private shehadaService: ShehadatService) { }
 
   ionViewWillEnter() {
-    this.shehadat = this.shehadaService.getAll()
-    this.getProfitDays('1',new Date())
+    this.shehadaService.getAll().then(shehadats => {
+      this.shehadat = shehadats
+    })
   }
 
   onEdit(id) {
 
   }
+
   onDelete(id) {
 
   }
+
   onAdd() {
     this.presentModal()
   }
 
-  getOwnerColor(owner:string){
-    let colorsClass = {me:'success', sherif:'danger', children:'tertiary', teta:'warning'};
+  async onChange(segmentVal) {
+    let newShehadat = await this.shehadaService.getAll(segmentVal);
+    this.shehadat = [...newShehadat];
+    console.log("new", newShehadat)
+  }
+
+  getOwnerColor(owner: string) {
+    let colorsClass = { me: 'success', sherif: 'danger', children: 'tertiary', teta: 'warning' };
     return colorsClass[owner];
   }
 
-  getProfitDays(type:'1'|'3',startDate:Date){
+  getProfitDays(type: '1' | '3', startDate: Date) {
     let day = new Date(startDate).getDate()
     let daysOfProfits = [];
     let month = 1;
-    while(month<=12){
+    while (month <= 12) {
       daysOfProfits.push(`${day}/${month}`)
-      if(type==='1')
+      if (type === '1')
         month++;
       else
-        month+=3;
+        month += 3;
     }
     return daysOfProfits
   }

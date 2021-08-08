@@ -8,24 +8,28 @@ import { StorageService } from './storage.service';
 })
 export class ShehadatService {
 
-  constructor(private storage:StorageService) { }
+  constructor(private storage: StorageService) { }
 
   add(shehada: Shehada) {
     let modifiedShehada = { ...shehada, id: nanoid(8) }
-    this.storage.set(modifiedShehada.id,modifiedShehada);
+    this.storage.set(modifiedShehada.id, modifiedShehada);
   }
 
-  remove(id:string){
+  remove(id: string) {
     this.storage.remove(id);
   }
 
-  get(id:string){
+  get(id: string) {
     return this.storage.get(id);
   }
 
-  getAll(){
-    return this.storage.getAll();
+  async getAll(filter?: string) {
+    let allShehadat = await this.storage.getAll();
+    if(!filter)
+      return allShehadat
+
+    return allShehadat.filter(shehada => shehada.owner === filter)
   }
-  
-  
+
+
 }

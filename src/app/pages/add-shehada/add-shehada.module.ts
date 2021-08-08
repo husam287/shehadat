@@ -13,7 +13,7 @@ import { AddShehadaPage } from './add-shehada.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AddShehadaPageRoutingModule
+    AddShehadaPageRoutingModule,
   ],
   declarations: [AddShehadaPage]
 })
