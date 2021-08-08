@@ -1,5 +1,7 @@
 {
   "name": "shehadat",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

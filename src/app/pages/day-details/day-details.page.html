@@ -14,8 +14,8 @@
     <ion-item (click)="onClick(shehada.id)" *ngFor="let shehada of shehadat" detail>
       <ion-label>{{shehada?.money |number}} EGP</ion-label>
       <ion-label>{{shehada?.profit}}%</ion-label>
-      <ion-label color="success" *ngIf="shehada?.type=='1'">+{{ ((shehada?.money * (shehada?.profit/100) ) /12).toPrecision(2) |number}}</ion-label>
-      <ion-label color="success" *ngIf="shehada?.type=='3'">+{{ ((shehada?.money * (shehada?.profit/100) ) /4).toPrecision(2) |number}}</ion-label>
+      <ion-label color="success" *ngIf="shehada?.type=='1'">+{{ ((shehada?.money * (shehada?.profit/100) ) /12).toFixed(0) |number}}</ion-label>
+      <ion-label color="success" *ngIf="shehada?.type=='3'">+{{ ((shehada?.money * (shehada?.profit/100) ) /4).toFixed(0) |number}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

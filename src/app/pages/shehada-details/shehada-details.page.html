@@ -38,8 +38,8 @@
 
     <ion-item>
       <ion-icon name="cash-outline" slot="start"></ion-icon>
-      <ion-label>{{ ((shehada?.money * (shehada?.profit/100) ) /12).toPrecision(2) |number}} / 1 month</ion-label>
-      <ion-label>{{ ((shehada?.money * (shehada?.profit/100) ) /4).toPrecision(2) |number}} / 3 month</ion-label>
+      <ion-label>{{ ((shehada?.money * (shehada?.profit/100) ) /12).toFixed(0)|number}} / 1 month</ion-label>
+      <ion-label>{{ ((shehada?.money * (shehada?.profit/100) ) /4).toFixed(0) |number}} / 3 month</ion-label>
     </ion-item>
 
   </ion-card>
