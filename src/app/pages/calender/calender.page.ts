@@ -17,13 +17,11 @@ export class CalenderPage implements ViewWillEnter {
 
   options: CalendarComponentOptions = {
     pickMode: 'multi',
-    from: this.beginingOfYear,
-    showMonthPicker:false
+    showMonthPicker:false,
   };
   constructor(public modalController: ModalController, private shehadat: ShehadatService) { }
 
   async ionViewWillEnter() {
-    console.log(this.beginingOfYear)
     let shehadat = await this.shehadat.getAll()
     shehadat = shehadat.map(item => item['daysOfProfits']);
     let dates = [];
@@ -36,7 +34,12 @@ export class CalenderPage implements ViewWillEnter {
 
       return `${ new Date().getFullYear() }-${ +month<=9? '0'+month:month }-${ +day<=9? '0'+day:day }`
     })
-    console.log(dates)
+
+    dates = dates.filter(item=>{
+      let today = new Date();
+      let targetDate = new Date(item);
+      return targetDate >= today
+    })
     this.dateList = dates;
   }
 

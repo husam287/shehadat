@@ -2,21 +2,21 @@
   <ion-toolbar>
     <ion-title>{{shehada?.money |number}}EGP - {{shehada?.startDate | date:'d/M/yyyy' }}</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs"></ion-back-button>
+      <ion-back-button defaultHref="tabs/home" (click)="onClose()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
-    <ion-img [src]="'assets/images/flos.jpg'"></ion-img>
+    <img src="assets/images/flos.jpg" />
 
     <ion-card-header>
       <ion-card-subtitle>Type: {{shehada?.type}} Month</ion-card-subtitle>
       <ion-card-title>Total: {{shehada?.money|number}} EGP</ion-card-title>
     </ion-card-header>
 
-    <ion-item >
+    <ion-item>
       <ion-icon color="success" name="battery-full-outline" slot="start"></ion-icon>
       <ion-label color="success">{{shehada?.startDate|date:'d/M/yyyy'}}</ion-label>
     </ion-item>

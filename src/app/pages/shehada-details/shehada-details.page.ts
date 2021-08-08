@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ViewWillEnter } from '@ionic/angular';
+import { ModalController, ViewWillEnter } from '@ionic/angular';
 import { Shehada } from 'src/app/services/shehada.model';
 import { ShehadatService } from 'src/app/services/shehadat.service';
 
@@ -12,9 +12,19 @@ import { ShehadatService } from 'src/app/services/shehadat.service';
 export class ShehadaDetailsPage implements ViewWillEnter {
 
   shehada: Shehada
-  constructor(private activeRouter: ActivatedRoute, private shehadaService: ShehadatService) { }
+  @Input('id') id: string;
+  @Input('type') type: string;
 
-  ionViewWillEnter() {
+  constructor(private activeRouter: ActivatedRoute, private shehadaService: ShehadatService, private modalCtrl: ModalController) { }
+
+  async ionViewWillEnter() {
+    if (this.type === 'modal') {
+      this.shehada = await this.shehadaService.get(this.id);
+      this.shehada.startDate = new Date(this.shehada.startDate)
+      this.shehada.endDate = new Date(this.shehada.endDate)
+      return;
+    }
+
     let id = this.activeRouter.snapshot.params['id']
     this.shehadaService.get(id)
       .then(data => {
@@ -22,7 +32,12 @@ export class ShehadaDetailsPage implements ViewWillEnter {
         this.shehada.startDate = new Date(this.shehada.startDate)
         this.shehada.endDate = new Date(this.shehada.endDate)
       });
+  }
 
+  onClose() {
+    if (this.type === 'modal') {
+      this.modalCtrl.dismiss();
+    }
   }
 
 }
