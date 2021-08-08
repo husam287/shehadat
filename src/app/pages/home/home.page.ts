@@ -15,6 +15,7 @@ export class HomePage implements ViewWillEnter {
 
   ionViewWillEnter() {
     this.shehadat = this.shehadaService.getAll()
+    this.getProfitDays('1',new Date())
   }
 
   onEdit(id) {
@@ -25,6 +26,25 @@ export class HomePage implements ViewWillEnter {
   }
   onAdd() {
     this.presentModal()
+  }
+
+  getOwnerColor(owner:string){
+    let colorsClass = {me:'success', sherif:'danger', children:'tertiary', teta:'warning'};
+    return colorsClass[owner];
+  }
+
+  getProfitDays(type:'1'|'3',startDate:Date){
+    let day = new Date(startDate).getDate()
+    let daysOfProfits = [];
+    let month = 1;
+    while(month<=12){
+      daysOfProfits.push(`${day}/${month}`)
+      if(type==='1')
+        month++;
+      else
+        month+=3;
+    }
+    return daysOfProfits
   }
 
   async presentModal() {

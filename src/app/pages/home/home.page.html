@@ -41,7 +41,7 @@
 
 
   <ion-list>
-    <ion-item-sliding *ngFor="let shehada of shehadat">
+    <ion-item-sliding [routerLink]="[shehada.id]" *ngFor="let shehada of shehadat">
       <ion-item detail="true">
         <ion-grid fixed>
           <ion-row class="ion-justify-content-between">
@@ -51,18 +51,10 @@
           </ion-row>
 
           <ion-row class="ion-justify-content-center months">
-            <ion-badge color="success">12/07</ion-badge>
-            <ion-badge color="success">01/01</ion-badge>
-            <ion-badge color="success">28/07</ion-badge>
-            <ion-badge color="success">12/07</ion-badge>
-            <ion-badge color="success">01/01</ion-badge>
-            <ion-badge color="success">28/07</ion-badge>
-            <ion-badge color="success">12/07</ion-badge>
-            <ion-badge color="success">01/01</ion-badge>
-            <ion-badge color="success">28/07</ion-badge>
-            <ion-badge color="success">12/07</ion-badge>
-            <ion-badge color="success">01/01</ion-badge>
-            <ion-badge color="success">28/07</ion-badge>
+            <ion-badge *ngFor="let day of getProfitDays(shehada.type,shehada.startDate)"
+              [color]="getOwnerColor(shehada.owner)">
+              {{day}}
+            </ion-badge>
           </ion-row>
         </ion-grid>
 

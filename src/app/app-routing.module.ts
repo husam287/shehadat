@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'add-shehada',
     loadChildren: () => import('./pages/add-shehada/add-shehada.module').then( m => m.AddShehadaPageModule)
+  },
+  {
+    path: 'shehada-details',
+    loadChildren: () => import('./pages/shehada-details/shehada-details.module').then( m => m.ShehadaDetailsPageModule)
   }
 ];
 @NgModule({
