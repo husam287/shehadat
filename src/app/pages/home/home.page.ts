@@ -32,9 +32,11 @@ export class HomePage implements ViewWillEnter {
   }
 
   async onChange(segmentVal) {
+    if(segmentVal==='all')
+      segmentVal = null;
+      
     let newShehadat = await this.shehadaService.getAll(segmentVal);
     this.shehadat = [...newShehadat];
-    console.log("new", newShehadat)
   }
 
   getOwnerColor(owner: string) {
