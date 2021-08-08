@@ -23,6 +23,14 @@ export class ShehadatService {
     return this.storage.get(id);
   }
 
+  async getAllFromADay(date:Date){
+    let day = date.getDate();
+    let month = date.getMonth()+1;
+    let wantedDay = `${day}/${month}`;
+    let allShehadat = await this.storage.getAll()
+    return allShehadat.filter(item => item.daysOfProfits.indexOf(wantedDay)!=-1)
+  }
+
   async getAll(filter?: string) {
     let allShehadat = await this.storage.getAll();
     if(!filter)

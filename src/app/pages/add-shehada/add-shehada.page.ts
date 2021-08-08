@@ -32,9 +32,24 @@ export class AddShehadaPage implements OnInit {
       this.errorAlertForDate()
       return;
     }
+    shehada['daysOfProfits'] = this.getProfitDays(shehada.type, shehada.startDate)
     
     this.shehadaService.add(form.form.value)
     this.onClose()
+  }
+
+  getProfitDays(type: '1' | '3', startDate: Date) {
+    let day = new Date(startDate).getDate()
+    let daysOfProfits = [];
+    let month = 1;
+    while (month <= 12) {
+      daysOfProfits.push(`${day}/${month}`)
+      if (type === '1')
+        month++;
+      else
+        month += 3;
+    }
+    return daysOfProfits
   }
 
   async errorAlertForDate() {

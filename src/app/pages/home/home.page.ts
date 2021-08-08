@@ -13,10 +13,8 @@ export class HomePage implements ViewWillEnter {
   shehadat: Shehada[] = [];
   constructor(private modalController: ModalController, private shehadaService: ShehadatService) { }
 
-  ionViewWillEnter() {
-    this.shehadaService.getAll().then(shehadats => {
-      this.shehadat = shehadats
-    })
+  async ionViewWillEnter() {
+    this.shehadat = await this.shehadaService.getAll();
   }
 
   onEdit(id) {

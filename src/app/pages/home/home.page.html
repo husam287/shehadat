@@ -51,7 +51,7 @@
           </ion-row>
 
           <ion-row class="ion-justify-content-center months">
-            <ion-badge *ngFor="let day of getProfitDays(shehada.type,shehada.startDate)"
+            <ion-badge *ngFor="let day of shehada.daysOfProfits"
               [color]="getOwnerColor(shehada.owner)">
               {{day}}
             </ion-badge>

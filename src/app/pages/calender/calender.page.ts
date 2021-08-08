@@ -1,6 +1,7 @@
-import { Component} from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component } from '@angular/core';
+import { ModalController, ViewWillEnter } from '@ionic/angular';
 import { CalendarComponentOptions } from 'ion2-calendar';
+import { ShehadatService } from 'src/app/services/shehadat.service';
 import { DayDetailsPage } from '../day-details/day-details.page';
 
 @Component({
@@ -8,14 +9,36 @@ import { DayDetailsPage } from '../day-details/day-details.page';
   templateUrl: 'calender.page.html',
   styleUrls: ['calender.page.scss']
 })
-export class CalenderPage {
-  dateList: string[] = ['2021-08-08', '2021-08-17', '2021-08-06', '2021-08-11',];
+export class CalenderPage implements ViewWillEnter {
+  dateList: string[] = [];
   type: 'string';
+  
+  beginingOfYear = new Date(new Date().getFullYear()+'-'+'01'+'-'+'01')
 
   options: CalendarComponentOptions = {
     pickMode: 'multi',
+    from: this.beginingOfYear,
+    showMonthPicker:false
   };
-  constructor(public modalController: ModalController) {}
+  constructor(public modalController: ModalController, private shehadat: ShehadatService) { }
+
+  async ionViewWillEnter() {
+    console.log(this.beginingOfYear)
+    let shehadat = await this.shehadat.getAll()
+    shehadat = shehadat.map(item => item['daysOfProfits']);
+    let dates = [];
+    shehadat.forEach(item => {
+      dates = [...dates, ...item]
+    })
+    dates = dates.map(item=>{
+      let day = item.split('/')[0];
+      let month = item.split('/')[1];
+
+      return `${ new Date().getFullYear() }-${ +month<=9? '0'+month:month }-${ +day<=9? '0'+day:day }`
+    })
+    console.log(dates)
+    this.dateList = dates;
+  }
 
   getLeftDays(day: string) {
     let targetDate = new Date(day);
@@ -24,22 +47,22 @@ export class CalenderPage {
     return Math.ceil(timeMS / (1000 * 60 * 60 * 24))
   }
 
-  onclick($event){
-    let s:HTMLElement = $event.path[1];
+  onclick($event) {
+    let s: HTMLElement = $event.path[1];
     let isActive = s.classList.contains('on-selected');
     let selectedDay = s.getAttribute('aria-label');
-    if(isActive && selectedDay){
+    if (isActive && selectedDay) {
       this.presentModal(selectedDay);
     }
   }
 
-  async presentModal(day:string) {
+  async presentModal(day: string) {
     const modal = await this.modalController.create({
       component: DayDetailsPage,
-      componentProps:{
+      componentProps: {
         day: day
       }
-      
+
     });
     return await modal.present();
   }
