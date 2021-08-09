@@ -40,7 +40,7 @@ export class HomePage implements ViewWillEnter {
   }
 
   getOwnerColor(owner: string) {
-    let colorsClass = { me: 'success', sherif: 'danger', children: 'tertiary', teta: 'warning' };
+    let colorsClass = { me: 'success', sherif: 'primary', children: 'danger', teta: 'warning' };
     return colorsClass[owner];
   }
 
