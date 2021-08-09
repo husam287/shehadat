@@ -13,7 +13,7 @@ import { ShehadaDetailsPage } from '../shehada-details/shehada-details.page';
 export class DayDetailsPage implements ViewWillEnter {
   @Input('day') day: string;
   shehadat: Shehada[];
-  constructor(private modalController: ModalController, private shehadaService: ShehadatService, private router:Router) { }
+  constructor(private modalController: ModalController, private shehadaService: ShehadatService, private router: Router) { }
 
 
   async ionViewWillEnter() {
@@ -24,9 +24,21 @@ export class DayDetailsPage implements ViewWillEnter {
   onClose() {
     this.modalController.dismiss()
   }
-  
-  onClick(id){
+
+  onClick(id) {
     this.presentModal(id).then()
+  }
+
+  calcTotalProfit() {
+    let sum = 0;
+    this.shehadat.forEach(item => {
+      if (item.type === '1') {
+        sum += +(((item?.money * (item?.profit / 100)) / 12).toFixed(2));
+      } else {
+        sum += +(((item?.money * (item?.profit / 100)) / 4).toFixed(2));
+      }
+    })
+    return sum;
   }
 
   private async presentModal(id) {
@@ -34,7 +46,7 @@ export class DayDetailsPage implements ViewWillEnter {
       component: ShehadaDetailsPage,
       componentProps: {
         id,
-        type:'modal',
+        type: 'modal',
       }
     });
     return modal.present()

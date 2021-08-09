@@ -4,7 +4,12 @@ const config: CapacitorConfig = {
   appId: 'com.shehadat',
   appName: 'shehadat',
   webDir: 'www',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+  plugins:{
+    SplashScreen:{
+      launchAutoHide: false,
+    }
+  }
 };
 
 export default config;
