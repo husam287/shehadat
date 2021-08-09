@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
   appId: 'com.shehadat',
   appName: 'shehadat',
   webDir: 'www',
-  bundledWebRuntime: false,
+  bundledWebRuntime: false
 };
 
 export default config;

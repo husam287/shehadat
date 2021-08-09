@@ -2,5 +2,12 @@
 	"appId": "com.shehadat",
 	"appName": "shehadat",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0,
+			"showSpinner": true,
+			"launchAutoHide": false
+		}
+	}
 }
