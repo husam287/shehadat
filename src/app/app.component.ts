@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SplashScreen } from '@capacitor/splash-screen';
 
 
 @Component({
@@ -12,6 +11,5 @@ export class AppComponent implements OnInit{
   }
   
   ngOnInit(){
-    SplashScreen.hide();
   }
 } 
