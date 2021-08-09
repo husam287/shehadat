@@ -42,7 +42,7 @@
 
   <ion-list>
     <ion-item-sliding [routerLink]="[shehada.id]" *ngFor="let shehada of shehadat">
-      <ion-item detail="true">
+      <ion-item [color]="getLeftDays(shehada.endDate)<30?'danger':''" detail="true">
         <ion-grid fixed>
           <ion-row class="ion-justify-content-between">
             <ion-label color="primary">{{shehada.type}} Month</ion-label>
@@ -60,10 +60,7 @@
 
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="warning" (click)="onEdit(shehada.id)">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger" (click)="onDelete(shehada.id)">
+        <ion-item-option color="danger" (click)="onDelete(shehada.id,$event)">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>

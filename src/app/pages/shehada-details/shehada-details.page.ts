@@ -34,6 +34,22 @@ export class ShehadaDetailsPage implements ViewWillEnter {
       });
   }
 
+  getLeftDays(day: Date) {
+    let targetDate = new Date(day);
+    let todayDate = new Date(Date.now());
+    let timeMS = <any>targetDate - <any>todayDate;
+    return Math.ceil(timeMS / (1000 * 60 * 60 * 24))
+  }
+
+  getLeftDaysColor(daysLeft){
+    if(daysLeft>90)
+      return 'success'
+    else if(daysLeft>60)
+      return 'warning'
+    else
+      return 'danger'
+  }
+
   onClose() {
     if (this.type === 'modal') {
       this.modalCtrl.dismiss();

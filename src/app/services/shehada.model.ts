@@ -5,7 +5,8 @@ export interface Shehada{
     startDate:Date,
     endDate:Date,
     type:'1'|'3',
-    daysOfProfits:string[]
+    daysOfProfits:string[],
+    profitDates:string[],
     id?:string
 }
 

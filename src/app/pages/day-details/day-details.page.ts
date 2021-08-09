@@ -17,7 +17,7 @@ export class DayDetailsPage implements ViewWillEnter {
 
 
   async ionViewWillEnter() {
-    this.shehadat = await this.shehadaService.getAllFromADay(new Date(this.day))
+    this.shehadat = await this.shehadaService.getAllFromADay(this.day)
     console.log(this.shehadat)
   }
 

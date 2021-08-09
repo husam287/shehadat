@@ -42,5 +42,13 @@
       <ion-label>{{ ((shehada?.money * (shehada?.profit/100) ) /4).toFixed(2) |number}} / 3 month</ion-label>
     </ion-item>
 
+    <ion-item>
+      <ion-icon [color]="getLeftDaysColor(getLeftDays(shehada?.endDate))" name="calendar-outline" slot="start">
+      </ion-icon>
+      <ion-label [color]="getLeftDaysColor(getLeftDays(shehada?.endDate))">
+        {{getLeftDays(shehada?.endDate)}} Days Left
+      </ion-label>
+    </ion-item>
+
   </ion-card>
 </ion-content>

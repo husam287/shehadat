@@ -13,24 +13,6 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-segment scrollable value="All">
-    <ion-segment-button value="All">
-      <ion-label>All</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="me">
-      <ion-label>Me</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="sherif">
-      <ion-label>Sherif</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="children">
-      <ion-label>Children</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="teta">
-      <ion-label>Teta</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-
   <ion-calendar [(ngModel)]="dateList" [readonly]="true" [type]="type" [options]="options" (click)="onclick($event)">
     
   </ion-calendar>

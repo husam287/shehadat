@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController, ViewWillEnter } from '@ionic/angular';
 import { CalendarComponentOptions } from 'ion2-calendar';
+import * as moment from 'moment';
 import { ShehadatService } from 'src/app/services/shehadat.service';
 import { DayDetailsPage } from '../day-details/day-details.page';
 
@@ -23,37 +24,24 @@ export class CalenderPage implements ViewWillEnter {
 
   async ionViewWillEnter() {
     let shehadat = await this.shehadat.getAll()
-    shehadat = shehadat.map(item => item['daysOfProfits']);
+    shehadat = shehadat.map(item => item['profitDates']);
     let dates = [];
     shehadat.forEach(item => {
       dates = [...dates, ...item]
     })
-    dates = dates.map(item=>{
-      let day = item.split('/')[0];
-      let month = item.split('/')[1];
-
-      return `${ new Date().getFullYear() }-${ +month<=9? '0'+month:month }-${ +day<=9? '0'+day:day }`
-    })
-
-    dates = dates.filter(item=>{
-      let today = new Date();
-      let targetDate = new Date(item);
-      return targetDate >= today
-    })
+    dates = [...new Set(dates)]
+    dates = dates.filter(item => moment(item).isSameOrAfter(moment()))
+    dates = dates.sort()
     this.dateList = dates;
   }
 
-  getLeftDays(day: string) {
-    let targetDate = new Date(day);
-    let todayDate = new Date(Date.now());
-    let timeMS = <any>targetDate - <any>todayDate;
-    return Math.ceil(timeMS / (1000 * 60 * 60 * 24))
-  }
+  
 
   onclick($event) {
     let s: HTMLElement = $event.path[1];
     let isActive = s.classList.contains('on-selected');
     let selectedDay = s.getAttribute('aria-label');
+    selectedDay = moment(new Date(selectedDay).toISOString()).format('YYYY-MM-DD')
     if (isActive && selectedDay) {
       this.presentModal(selectedDay);
     }
