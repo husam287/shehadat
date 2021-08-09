@@ -11,10 +11,11 @@ import { AddShehadaPage } from '../add-shehada/add-shehada.page';
 })
 export class HomePage implements ViewWillEnter {
   shehadat: Shehada[] = [];
+  segmentValue = null;
   constructor(private modalController: ModalController, private shehadaService: ShehadatService) { }
 
   async ionViewWillEnter() {
-    this.shehadat = await this.shehadaService.getAll();
+    this.shehadat = await this.shehadaService.getAll(this.segmentValue);
   }
 
   onEdit(id) {
@@ -32,7 +33,8 @@ export class HomePage implements ViewWillEnter {
   async onChange(segmentVal) {
     if(segmentVal==='all')
       segmentVal = null;
-      
+    
+    this.segmentValue = segmentVal; 
     let newShehadat = await this.shehadaService.getAll(segmentVal);
     this.shehadat = [...newShehadat];
   }
@@ -47,7 +49,7 @@ export class HomePage implements ViewWillEnter {
     let daysOfProfits = [];
     let month = 1;
     while (month <= 12) {
-      daysOfProfits.push(`${day}/${month}`)
+      daysOfProfits.push(`${day+1}/${month}`)
       if (type === '1')
         month++;
       else

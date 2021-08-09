@@ -23,6 +23,10 @@ export class ShehadatService {
     return this.storage.get(id);
   }
 
+  clearAll(){
+    this.storage.clearAll();
+  }
+
   async getAllFromADay(date:Date){
     let day = date.getDate();
     let month = date.getMonth()+1;
