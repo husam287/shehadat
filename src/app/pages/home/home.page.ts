@@ -18,10 +18,6 @@ export class HomePage implements ViewWillEnter {
     this.shehadat = await this.shehadaService.getAll(this.segmentValue);
   }
 
-  onEdit(id) {
-
-  }
-
   onDelete(id:string,event:any) {
     event.stopPropagation();
     this.deleteAlert(() => {
@@ -70,7 +66,15 @@ export class HomePage implements ViewWillEnter {
     return Math.ceil(timeMS / (1000 * 60 * 60 * 24))
   }
 
-  async presentModal() {
+  getTotalMoney(){
+    let sum = 0;
+    this.shehadat.forEach(element => {
+      sum+=element.money;
+    });
+    return sum;
+  }
+
+  private async presentModal() {
     const modal = await this.modalController.create({
       component: AddShehadaPage,
       componentProps: {
@@ -85,7 +89,7 @@ export class HomePage implements ViewWillEnter {
     return modal.present()
   }
 
-  async deleteAlert(deleteFunction) {
+  private async deleteAlert(deleteFunction) {
     const modal = await this.alert.create({
       message: 'Are you sure that you want to delete this item permentally',
       header: 'WARRNING',
