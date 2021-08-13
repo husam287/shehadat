@@ -12,13 +12,20 @@ import { ShehadaDetailsPage } from '../shehada-details/shehada-details.page';
 })
 export class DayDetailsPage implements ViewWillEnter {
   @Input('day') day: string;
-  shehadat: Shehada[];
+  @Input('firstDateInList') firstDateInList:string;
+  shehadat:Shehada[]=[];
+  shehadatWithDate:{"shehadat":Shehada[], "date":string}[];
   constructor(private modalController: ModalController, private toastController:ToastController, private shehadaService: ShehadatService, private alert: AlertController, private actionSheetController: ActionSheetController) { }
 
 
   async ionViewWillEnter() {
-    this.shehadat = await this.shehadaService.getAllFromADay(this.day)
-    console.log(this.shehadat)
+    let temp = await this.shehadaService.getAllFromADay(this.day, this.firstDateInList)
+    temp = temp.filter(item=>item.shehadat.length!==0)
+    this.shehadatWithDate = [...temp];
+
+    temp.forEach(item=>{
+      this.shehadat = [...this.shehadat, ...item.shehadat]
+    })
   }
 
   onClose() {

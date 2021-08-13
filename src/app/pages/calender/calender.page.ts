@@ -43,15 +43,16 @@ export class CalenderPage implements ViewWillEnter {
     let selectedDay = s.getAttribute('aria-label');
     selectedDay = moment(new Date(selectedDay).toISOString()).format('YYYY-MM-DD')
     if (isActive && selectedDay) {
-      this.presentModal(selectedDay);
+      this.presentModal(selectedDay, this.dateList[0]);
     }
   }
 
-  async presentModal(day: string) {
+  async presentModal(day: string, firstDateInList) {
     const modal = await this.modalController.create({
       component: DayDetailsPage,
       componentProps: {
-        day: day
+        day: day,
+        firstDateInList
       }
     });
     modal.onDidDismiss().then(()=>{

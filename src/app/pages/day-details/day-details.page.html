@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Day - {{day}}
+      From {{firstDateInList}} To {{day}}
     </ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/calender" (click)="onClose()"></ion-back-button>
@@ -10,14 +10,21 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item (click)="onClick(shehada.id)" *ngFor="let shehada of shehadat" detail>
-      <ion-label>{{shehada?.money |number}} EGP</ion-label>
-      <ion-label>{{shehada?.profit}}%</ion-label>
-      <ion-label color="success" *ngIf="shehada?.type=='1'">+{{ ((shehada?.money * (shehada?.profit/100) ) /12).toFixed(2) |number}}</ion-label>
-      <ion-label color="success" *ngIf="shehada?.type=='3'">+{{ ((shehada?.money * (shehada?.profit/100) ) /4).toFixed(2) |number}}</ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-row *ngFor="let day of shehadatWithDate">
+    <ion-col class="ion-text-center ion-margin-top" size="12">
+      <ion-badge class="ion-text-center" color="dark">
+        {{day.date}}
+      </ion-badge>
+      <ion-list>
+        <ion-item (click)="onClick(shehada.id)" *ngFor="let shehada of day.shehadat" detail>
+          <ion-label class="ion-text-center">{{shehada?.money |number}} EGP</ion-label>
+          <ion-label class="ion-text-center">{{shehada?.owner}}</ion-label>
+          <ion-label class="ion-text-center" color="success" *ngIf="shehada?.type=='1'">+{{ ((shehada?.money * (shehada?.profit/100) ) /12).toFixed(2) |number}}</ion-label>
+          <ion-label class="ion-text-center" color="success" *ngIf="shehada?.type=='3'">+{{ ((shehada?.money * (shehada?.profit/100) ) /4).toFixed(2) |number}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
   <ion-grid fixed>
     <ion-row>
       <ion-col class="ion-text-center" size="12">
