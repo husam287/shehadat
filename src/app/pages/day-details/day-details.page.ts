@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { ActionSheetController, AlertController, ModalController, ToastController, ViewWillEnter } from '@ionic/angular';
+import * as moment from 'moment';
 import { Shehada } from 'src/app/services/shehada.model';
 import { ShehadatService } from 'src/app/services/shehadat.service';
 import { ShehadaDetailsPage } from '../shehada-details/shehada-details.page';
@@ -44,6 +44,26 @@ export class DayDetailsPage implements ViewWillEnter {
   withdraw() {
     this.presentActionSheet();
   }
+  
+  private deleteCurrentDay(){
+    this.shehadat.forEach(element=>{
+      let index = element.profitDates.indexOf(this.day);
+      element.profitDates.splice(index,1);
+      this.shehadaService.edit(element.id, element);
+    })
+    this.presentToast();
+    this.shehadat = [];
+  }
+
+  private async deleteAllPrevious(){
+    let shehadat:Shehada[] = await this.shehadaService.getAll();
+    shehadat.forEach(element=>{
+      element.profitDates = element.profitDates.filter(element=>moment(element).isAfter(moment(this.day)))
+      this.shehadaService.edit(element.id, element);
+    })
+    this.presentToast();
+    this.shehadat = [];
+  }
 
   private async presentModal(id) {
     const modal = await this.modalController.create({
@@ -63,13 +83,13 @@ export class DayDetailsPage implements ViewWillEnter {
         text: 'Withdraw this day only',
         icon: 'remove-outline',
         handler: () => {
-          this.withdrawAlert('WITHDRAW ONE DAY!!', ()=>{this.presentToast()})
+          this.withdrawAlert('WITHDRAW ONE DAY!!', ()=>{this.deleteCurrentDay()})
         }
       }, {
         text: 'Withdraw all previous',
         icon: 'reorder-four-outline',
         handler: () => {
-          this.withdrawAlert('WITHDRAW ALL PREVIOUS DAYS!!', ()=>{this.presentToast()})
+          this.withdrawAlert('WITHDRAW ALL PREVIOUS DAYS!!', ()=>{this.deleteAllPrevious()})
         }
       },
       {

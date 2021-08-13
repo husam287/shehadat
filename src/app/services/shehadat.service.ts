@@ -23,6 +23,11 @@ export class ShehadatService {
     return this.storage.get(id);
   }
 
+  edit(id:string, newShehada: Shehada){
+    this.remove(id);
+    this.storage.set(id,newShehada)
+  }
+
   clearAll(){
     this.storage.clearAll();
   }

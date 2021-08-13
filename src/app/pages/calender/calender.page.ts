@@ -19,6 +19,7 @@ export class CalenderPage implements ViewWillEnter {
   options: CalendarComponentOptions = {
     pickMode: 'multi',
     showMonthPicker:false,
+    from: new Date(moment().subtract(1,'y').format('YYYY-MM-DD')) //the last year
   };
   constructor(public modalController: ModalController, private shehadat: ShehadatService) { }
 
@@ -30,7 +31,6 @@ export class CalenderPage implements ViewWillEnter {
       dates = [...dates, ...item]
     })
     dates = [...new Set(dates)]
-    dates = dates.filter(item => moment(item).isSameOrAfter(moment()))
     dates = dates.sort()
     this.dateList = dates;
   }
@@ -53,8 +53,10 @@ export class CalenderPage implements ViewWillEnter {
       componentProps: {
         day: day
       }
-
     });
+    modal.onDidDismiss().then(()=>{
+      this.ionViewWillEnter()
+    })
     return await modal.present();
   }
 
