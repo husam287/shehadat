@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController, ViewWillEnter } from '@ionic/angular';
+import { ActionSheetController, AlertController, ModalController, ToastController, ViewWillEnter } from '@ionic/angular';
 import { Shehada } from 'src/app/services/shehada.model';
 import { ShehadatService } from 'src/app/services/shehadat.service';
 import { ShehadaDetailsPage } from '../shehada-details/shehada-details.page';
@@ -13,7 +13,7 @@ import { ShehadaDetailsPage } from '../shehada-details/shehada-details.page';
 export class DayDetailsPage implements ViewWillEnter {
   @Input('day') day: string;
   shehadat: Shehada[];
-  constructor(private modalController: ModalController, private shehadaService: ShehadatService, private router: Router) { }
+  constructor(private modalController: ModalController, private toastController:ToastController, private shehadaService: ShehadatService, private alert: AlertController, private actionSheetController: ActionSheetController) { }
 
 
   async ionViewWillEnter() {
@@ -41,6 +41,10 @@ export class DayDetailsPage implements ViewWillEnter {
     return sum;
   }
 
+  withdraw() {
+    this.presentActionSheet();
+  }
+
   private async presentModal(id) {
     const modal = await this.modalController.create({
       component: ShehadaDetailsPage,
@@ -50,6 +54,57 @@ export class DayDetailsPage implements ViewWillEnter {
       }
     });
     return modal.present()
+  }
+
+  private async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Withdraw options',
+      buttons: [{
+        text: 'Withdraw this day only',
+        icon: 'remove-outline',
+        handler: () => {
+          this.withdrawAlert('WITHDRAW ONE DAY!!', ()=>{this.presentToast()})
+        }
+      }, {
+        text: 'Withdraw all previous',
+        icon: 'reorder-four-outline',
+        handler: () => {
+          this.withdrawAlert('WITHDRAW ALL PREVIOUS DAYS!!', ()=>{this.presentToast()})
+        }
+      },
+      {
+        text: 'Cancel',
+        icon: 'close-outline',
+        role: 'close'
+      }]
+    });
+    await actionSheet.present();
+  }
+
+
+  private async withdrawAlert(header, deleteFunction) {
+    const modal = await this.alert.create({
+      message: 'Are you sure that you want to withdraw?',
+      header: header,
+      buttons: [
+        {
+          text: 'Yes',
+          handler: deleteFunction,
+          role: 'success'
+        },
+        'Cancel'
+      ]
+    });
+    await modal.present()
+  }
+
+  private async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Withdraw successfully',
+      duration: 1500,
+      color:'success'
+    });
+    toast.present();
   }
 
 }
